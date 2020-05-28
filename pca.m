@@ -20,7 +20,7 @@ S = zeros(n);
 %       number of examples).
 %
 
-Sigma = (1/2)*(X'*X);
+Sigma = (1/m)*(X'*X);
 
 [U, S, V] = svd(Sigma);
 
