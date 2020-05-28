@@ -27,25 +27,18 @@ centroids = zeros(K, n);
 %
 
 % Initialize centroids
-iterations = 10;
 centroids = kMeansInitCentroids(X, K);
-for iter = 1:iterations
-  tempcentroids = zeros(size(centroids));
-  centroidcount = zeros(K,1);
-  % Cluster assignment step: Assign each data point to the
-  % closest centroid. idx(i) corresponds to cˆ(i), the index
-  % of the centroid assigned to example i
-  idx = findClosestCentroids(X, centroids);
-  % Move centroid step: Compute means based on centroid
-  % assignments
-  for i= 1:m
-    tempcentroids(idx(i),:) = centroids(idx(i),:) + X(i,:);
-    centroidcount(idx(i)) ++;
-  end
-  for j= 1:K
-    centroids(j,:) = tempcentroids(j,:)/centroidcount(j);
-  end
+
+tempcentroids = zeros(size(centroids));
+centroidcount = zeros(K,1);
+for i= 1:m
+  tempcentroids(idx(i),:) += X(i,:);
+  centroidcount(idx(i)) ++;
 end
+for j= 1:K
+  centroids(j,:) = tempcentroids(j,:)/centroidcount(j);
+end
+
 
 
 
