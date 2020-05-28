@@ -20,11 +20,16 @@ idx = zeros(size(X,1), 1);
 %
 % Note: You can use a for-loop over the examples to compute this.
 %
+m = size(X,1);
+mincentroid = zeros(size(X,1), K);
+for i = 1:K
+  mincentroid(:,i) = sum((X.-centroids(i,:)).^2, 2);
+end
 
-
-
-
-
+for j = 1:m
+  [val, idxaprox] = min(mincentroid(j,:));
+  idx(j) = idxaprox;
+end
 
 
 % =============================================================
